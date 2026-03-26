@@ -136,6 +136,30 @@
             </p>
         </div>
 
+        <div class="project">
+            <h3>🔹 Research Project – Environmental & Climate Data</h3>
+            <p>
+                Participation in academic research supported by FAPESP (São Paulo Research Foundation),
+                contributing to studies related to environmental and climate data analysis.
+            </p>
+            <p>
+                The project focuses on understanding complex environmental systems, including the impact of
+                climate change and biodiversity dynamics, using data-driven approaches to support scientific
+                research and real-world decision-making.
+            </p>
+            <p>
+                This experience strengthened skills in data analysis, interpretation of scientific datasets,
+                and the application of analytical methods to environmental challenges.
+            </p>
+            <p>
+                🔗 <a href="https://bv.fapesp.br/pt/pesquisador/712869/melissa-lopes-fagundes-santos/" target="_blank">
+                    View Research Profile
+                </a>
+                🔗 <a href="https://buscatextual.cnpq.br/buscatextual/visualizacv.do?metodo=apresentar&id=K2002591Y1" target="_blank">
+                    View CV Lattes
+                </a>                
+            </p>
+        </div>        
     </section>
 
     <section>
@@ -151,11 +175,63 @@
         <p>🔗 <a href="https://www.linkedin.com/in/melissa-lopes-014114213/" target="_blank">LinkedIn</a></p>
     </section>
 
+    <section>
+        <h2>🌦️ Weather</h2>
+
+        <div id="weather">
+            <p>Loading weather data...</p>
+        </div>
+    </section>
+
 </div>
+
+
 
 <footer>
     <p>© 2026 Melissa Lopes - Portfolio</p>
 </footer>
+
+<script>
+const apiKey = "ca429eee31f9968f340f4b894c2cfeba";
+
+const locations = [
+    { name: "Dublin, Ireland", lat: 53.3498, lon: -6.2603 },
+    { name: "São Paulo, Brazil", lat: -23.5505, lon: -46.6333 }
+];
+
+async function getWeather() {
+    const container = document.getElementById("weather");
+    container.innerHTML = "";
+
+    for (const loc of locations) {
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${loc.lat}&lon=${loc.lon}&appid=${apiKey}&units=metric`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const temp = data.main.temp;
+            const desc = data.weather[0].description;
+
+            const div = document.createElement("div");
+            div.style.marginBottom = "10px";
+
+            div.innerHTML = `
+                <strong>${loc.name}</strong><br>
+                🌡️ ${temp}°C<br>
+                ☁️ ${desc}
+            `;
+
+            container.appendChild(div);
+
+        } catch (error) {
+            container.innerHTML = "Error loading weather data.";
+        }
+    }
+}
+
+getWeather();
+</script>
 
 </body>
 </html>
